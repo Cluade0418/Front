@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search for your dream school</title>
+    <style>
+        body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('images/background.jpg') center center fixed;
+        background-size: cover;
+        color: #fff;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    h1 {
+        text-align: center;
+        color: rgb(59, 56, 56);
+    }
+    
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+        color: rgb(18, 2, 2)f0f;
+    }
+    
+    input[type="text"] {
+        padding: 10px;
+        width: 60%;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    #searchResults {
+        margin-top: 20px;
+    }
+    
+    p {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    </style>
+
+</head>
+<body>
+<section id="background"></section>
+    
+<h1>Search for your dream school</h1>
+<form action="" method="post" onsubmit="searchDatabase(event)">
+    <label for="searchInput">Key word search：</label>
+    <input type="text" id="searchInput" name="searchInput" required>
+    <button type="submit">Search</button>
+</form>
+
+<div id="searchResults"></div>
+
+<script>
+function searchDatabase(event) {
+    event.preventDefault();
+
+    // 获取搜索关键字
+    var searchInput = document.getElementById('searchInput').value;
+
+    // 发送搜索请求到服务器
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'search.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // 处理搜索结果
+            document.getElementById('searchResults').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send('searchInput=' + encodeURIComponent(searchInput));
+}
+</script>
+
+</body>
+</html>
